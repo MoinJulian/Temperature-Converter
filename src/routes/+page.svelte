@@ -1,3 +1,29 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+
+	let celsiusElement: HTMLInputElement;
+	let fahrenheitElement: HTMLInputElement;
+
+	onMount(() => {
+		celsiusElement = document.getElementById('celsius') as HTMLInputElement;
+		fahrenheitElement = document.getElementById('fahrenheit') as HTMLInputElement;
+	});
+
+	function convertToFahrenheit() {
+		if (celsiusElement && fahrenheitElement) {
+			const celsiusInput = parseFloat(celsiusElement.value);
+
+			if (!isNaN(celsiusInput)) {
+				let fahrenheitOutput = (celsiusInput * 9) / 5 + 32;
+				fahrenheitOutput = parseFloat(fahrenheitOutput.toFixed(2));
+				fahrenheitElement.value = fahrenheitOutput.toString();
+			} else {
+				console.log('Invalid input. Please enter a valid number for Celsius.');
+			}
+		}
+	}
+</script>
+
 <h1>Temperature Converter</h1>
 
 <p>This is a simple Temperature Converter made with SvelteKit, TypeScript, and SCSS</p>
@@ -7,20 +33,20 @@
 		<div class="unit">
 			<h2>Celsius</h2>
 			<div class="row">
-				<input type="number" />
+				<input type="number" id="celsius" />
 				<p>°C</p>
 			</div>
 		</div>
 		<div class="unit">
 			<h2>Fahrenheit</h2>
 			<div class="row">
-				<input type="number" />
+				<input type="number" id="fahrenheit" />
 				<p>°F</p>
 			</div>
 		</div>
 	</div>
 	<div class="convert-button">
-		<button>Convert</button>
+		<button on:click={convertToFahrenheit}>Convert</button>
 	</div>
 </div>
 
