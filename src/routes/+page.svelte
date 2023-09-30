@@ -3,10 +3,19 @@
 
 	let celsiusElement: HTMLInputElement;
 	let fahrenheitElement: HTMLInputElement;
+	let display: string;
+
+	function handleEvent(event: { key: string }) {
+		if (event.key === 'Enter') {
+			convertToFahrenheit();
+		}
+	}
 
 	onMount(() => {
 		celsiusElement = document.getElementById('celsius') as HTMLInputElement;
 		fahrenheitElement = document.getElementById('fahrenheit') as HTMLInputElement;
+
+		document.addEventListener('keydown', handleEvent);
 	});
 
 	function convertToFahrenheit() {
@@ -18,7 +27,13 @@
 				fahrenheitOutput = parseFloat(fahrenheitOutput.toFixed(2));
 				fahrenheitElement.value = fahrenheitOutput.toString();
 			} else {
-				console.log('Invalid input. Please enter a valid number for Celsius.');
+				display = 'Invalid input. Please enter a valid number for Celsius.';
+
+				setTimeout(() => {
+					display = '';
+				}, 2000);
+				celsiusElement.value = '';
+				fahrenheitElement.value = '';
 			}
 		}
 	}
@@ -38,6 +53,11 @@
 			</div>
 		</div>
 		<div class="unit">
+			<div class="row">
+				<p>-></p>
+			</div>
+		</div>
+		<div class="unit">
 			<h2>Fahrenheit</h2>
 			<div class="row">
 				<input type="number" id="fahrenheit" />
@@ -49,6 +69,12 @@
 		<button on:click={convertToFahrenheit}>Convert</button>
 	</div>
 </div>
+
+{#if display}
+	<div style="margin-top: 1rem;">
+		<p class="error">{display}</p>
+	</div>
+{/if}
 
 <style lang="scss">
 	.row {
