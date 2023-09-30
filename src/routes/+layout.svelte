@@ -6,4 +6,14 @@
 	<title>Temperature Converter</title>
 </svelte:head>
 
-<slot />
+<main>
+	<slot />
+</main>
+
+<style>
+	main {
+		max-width: 40rem;
+		margin-inline: 0 auto;
+		padding-inline: 1rem;
+	}
+</style>
