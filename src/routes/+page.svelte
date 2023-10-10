@@ -4,6 +4,7 @@
 	let celsiusElement: HTMLInputElement;
 	let fahrenheitElement: HTMLInputElement;
 	let display: string;
+	let time: number = 10000;
 
 	function handleEvent(event: { key: string }) {
 		if (event.key === 'Enter') {
@@ -21,11 +22,26 @@
 	function convertToFahrenheit() {
 		if (celsiusElement && fahrenheitElement) {
 			const celsiusInput = parseFloat(celsiusElement.value);
+			const fahrenheitInput = parseFloat(fahrenheitElement.value);
 
 			if (!isNaN(celsiusInput)) {
 				let fahrenheitOutput = (celsiusInput * 9) / 5 + 32;
 				fahrenheitOutput = parseFloat(fahrenheitOutput.toFixed(2));
 				fahrenheitElement.value = fahrenheitOutput.toString();
+
+				setTimeout(() => {
+					fahrenheitElement.value = '';
+					celsiusElement.value = '';
+				}, time);
+			} else if (!isNaN(fahrenheitInput)) {
+				let celsiusOutput = ((fahrenheitInput - 32) * 5) / 9;
+				celsiusOutput = parseFloat(celsiusOutput.toFixed(2));
+				celsiusElement.value = celsiusOutput.toString();
+
+				setTimeout(() => {
+					fahrenheitElement.value = '';
+					celsiusElement.value = '';
+				}, time);
 			} else {
 				display = 'Invalid input. Please enter a valid number for Celsius.';
 
@@ -109,8 +125,9 @@
 
 	.converter {
 		display: flex;
+		justify-content: center;
 		flex-direction: column;
-		align-items: center;
+		height: 100vh;
 	}
 
 	.unit {
@@ -118,6 +135,10 @@
 	}
 
 	.convert-button {
-		margin-top: 1rem;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		margin-top: 5rem;
 	}
 </style>

@@ -12,8 +12,10 @@
 
 <style>
 	main {
-		max-width: 40rem;
-		margin-inline: 0 auto;
-		padding-inline: 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: relative;
+		height: 100vh;
 	}
 </style>
