@@ -8,7 +8,7 @@
 
 	function handleEvent(event: { key: string }) {
 		if (event.key === 'Enter') {
-			convertToFahrenheit();
+			convertTemperature();
 		}
 	}
 
@@ -19,7 +19,7 @@
 		document.addEventListener('keydown', handleEvent);
 	});
 
-	function convertToFahrenheit() {
+	function convertTemperature() {
 		if (celsiusElement && fahrenheitElement) {
 			const celsiusInput = parseFloat(celsiusElement.value);
 			const fahrenheitInput = parseFloat(fahrenheitElement.value);
@@ -82,7 +82,7 @@
 		</div>
 	</div>
 	<div class="convert-button">
-		<button on:click={convertToFahrenheit}>Convert</button>
+		<button on:click={convertTemperature}>Convert</button>
 	</div>
 </div>
 
